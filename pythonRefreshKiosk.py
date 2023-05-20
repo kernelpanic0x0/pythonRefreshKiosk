@@ -18,6 +18,7 @@ from selenium.webdriver.edge.options import Options
 edge_options = Options()
 edge_options.add_argument("--kiosk")
 edge_options.add_argument("disable-infobars")
+edge_options.add_experimental_option("excludeSwitches",['enable-automation'])
 driver = webdriver.Edge(options=edge_options)
 driver.get("https://google.com")
 

@@ -48,7 +48,7 @@ def web_refresh_timer():
     trigger selenium refresh driver
     :return:
     """
-    print("web_refresher_timer function caleld")
+    print("web_refresher_timer function called")
     global start_time
     print(f"First click at {start_time}")
     # Execute this function every 5 seconds

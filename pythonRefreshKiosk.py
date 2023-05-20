@@ -17,8 +17,8 @@ from selenium.webdriver.edge.options import Options
 # Configure web driver - MS Edge
 edge_options = Options()
 edge_options.add_argument("--kiosk")
-
-driver = webdriver.Edge(edge_options=edge_options)
+edge_options.add_argument("disable-infobars")
+driver = webdriver.Edge(options=edge_options)
 driver.get("https://google.com")
 
 #Global variable
@@ -58,7 +58,7 @@ def web_refresh_timer():
     # Execute this function every 5 seconds
     Timer(5, web_refresh_timer).start()
     time_elapsed = time.time() - start_time
-    print(f"Time elapsed between mouse clicks is: {time_elapsed} (seconds)")
+    print(f"Time elapsed between mouse clicks is: {time_elapsed} (seconds) / 1800 (seconds)")
 
     if time_elapsed > 1800:
         print(f"elapsed time {time_elapsed} more than 1800 seconds (30 minutes")

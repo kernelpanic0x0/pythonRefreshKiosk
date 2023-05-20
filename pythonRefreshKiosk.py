@@ -10,12 +10,16 @@ from pynput.mouse import Listener
 import time
 from threading import Timer
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 
-chrome_options = Options()
-chrome_options.add_argument("--kiosk")
-driver = webdriver.Chrome(chrome_options=chrome_options)
-driver.get("http://google.com")
+from selenium.webdriver.edge.options import Options
+
+
+# Configure web driver - MS Edge
+edge_options = Options()
+edge_options.add_argument("--kiosk")
+
+driver = webdriver.Edge(edge_options=edge_options)
+driver.get("https://google.com")
 
 #Global variable
 start_time = 0
@@ -56,8 +60,8 @@ def web_refresh_timer():
     time_elapsed = time.time() - start_time
     print(f"Time elapsed between mouse clicks is: {time_elapsed} (seconds)")
 
-    if time_elapsed > 50:
-        print(f"elapsed time {time_elapsed} more than 50 seconds")
+    if time_elapsed > 1800:
+        print(f"elapsed time {time_elapsed} more than 1800 seconds (30 minutes")
         start_time = time.time()
         print(f"Reset start time to current time {start_time}")
 
@@ -72,7 +76,7 @@ Open Listener for mouse click
 with Listener(on_click=on_click) as Listener:
 
     #Listen to mouse click
-    print("LMB listener activated")
+    print("LMB listener activated - Val ver 0.0.1")
     print(f"calling web_refresher_timer()")
     web_refresh_timer()
     Listener.join()

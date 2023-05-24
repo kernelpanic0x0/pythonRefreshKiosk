@@ -15,4 +15,4 @@ Install PyInstaller from PyPI:
 
 Go to your program’s directory and run:
 
->pyinstaller launcher.py --splash splashfile.png --debug bootloader --hidden-import "babel.numbers" --icon=small_icon.ico
+>pyinstaller pythonRefreshKiosk.py --add-file "config.json;."

@@ -77,7 +77,7 @@ class App():
             # start timer when the mouse key is pressed
             logging.info('The "{}" mouse key has held down'.format(args[-2].name))
             self.start_time = time.time()
-            logging.info(f"Time stamp when LMB click {self.start_time}")
+            logging.info(f"Time stamp when LMB click {strftime('%Y-%m-%d %H:%M:%S', localtime(self.start_time))}")
 
         elif not args[-1]:
             # do nothing

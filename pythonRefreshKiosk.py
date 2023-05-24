@@ -17,6 +17,8 @@ from selenium.webdriver.edge.options import Options
 from time import strftime, localtime
 import logging
 
+import sys, os
+
 # This function will be called when any key of the mouse is pressed
 class App():
     """
@@ -34,6 +36,15 @@ class App():
         self.edge_options.add_argument("disable-infobars")
         self.edge_options.add_experimental_option("excludeSwitches", ['enable-automation'])
         self.driver = webdriver.Edge(options=self.edge_options)
+
+        if getattr(sys, 'frozen', False):
+            # If the application is run as a bundle, the PyInstaller bootloader
+            # extends the sys module by a flag frozen=True and sets the app
+            # path into variable _MEIPASS'.
+            self.application_path = getattr(sys, '_MEIPASS', os.path.dirname(sys.executable))
+
+        else:
+            self.application_path = os.path.dirname(os.path.abspath(__file__))
 
     def setup_logging(self):
         # set up logging to file - see previous section for more details
@@ -98,9 +109,14 @@ class App():
 
     def load_json(self, *args):
         # Opening JSON file
+        config_name = 'config.json'
+        self.logger2.info(f"Sys path is: {sys.path}")
         try:
+
+            config_path = os.path.join(self.application_path, config_name)
+            self.logger2.info(f"Config JSON path: {config_path}")
             self.logger2.info("Opening JSON config file")
-            f = open('config.json')
+            f = open(config_path)
             # Return JSON object as a dictionary
             data = json.load(f)
             logging.info(data)
@@ -110,9 +126,9 @@ class App():
 
             # Closing JSON file
             f.close()
-
         except FileNotFoundError:
             self.logger2.error("JSON file not found")
+            raise SystemExit(1)
 
     def time_convert(self, sec):
         """
